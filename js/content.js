@@ -7,6 +7,8 @@ export const STUDY_LABEL = 'Study drawn in code · film to come';
 
 export const DISCLOSURE = 'Films marked “Concept visualisation · AI-generated” are AI-made illustrations of proposed experiences in generic venues. They are not footage of completed or commissioned YBAVIT projects, and final design, scale, brightness and viewing conditions will differ. Real project footage is labelled with client, venue and year.';
 
+export const DISCLOSURE_CLIENT = 'Films marked “Concept visualisation · AI-generated” illustrate the kinds of experiences YBAVIT designs. They are not footage of completed projects, and real installations will differ in design, scale and viewing conditions. Market figures describe other organisations’ work, and their sources are cited.';
+
 export const DISCLOSURE_LONG = 'Clips marked “Concept visualisation · AI-generated” were made with generative AI video tools to illustrate the kinds of experiences YBAVIT designs. They are not footage of completed or commissioned projects and show no client’s venue. Real installations will differ in design, scale, brightness, sound and viewing conditions. Storyboards, the spatial-audio demo and pre-vis captures are made by our team [confirm per asset], and the show-control timeline is an illustrative diagram. Real project footage is labelled with client, venue and year. Market figures describe other organisations’ work, and their sources are cited.';
 
 // ---------------------------------------------------------------- disciplines and the 35 services
@@ -84,7 +86,7 @@ export const TILES = {
   MOTF:    { fig: '~5M', label: 'Visitors to Dubai’s Museum of the Future in its first four years', src: 'Dubai Media Office, 22 Feb 2026', url: 'https://mediaoffice.ae/en/news/2026/february/22-02/museum-of-the-future', notOurs: true },
   NOOR:    { fig: '7M+', label: 'Visitors to Noor Riyadh 2025, a city-wide light-art festival', src: 'Arab News, Dec 2025', url: 'https://www.arabnews.com/node/2625283/saudi-arabia', notOurs: true },
   GIGA:    { fig: 'US$196bn', label: 'Saudi giga-project contracts awarded, with an US$808bn pipeline', src: 'Knight Frank via The National, 6 Oct 2025', url: 'https://www.thenationalnews.com/business/2025/10/06/contract-value-of-saudi-giga-projects-jumps-20-to-196-billion/', notOurs: true },
-  EXPO:    { fig: '40M', label: 'Visitors expected at Expo 2030 Riyadh', src: 'Saudipedia (secondary source, verify before use)', url: 'https://saudipedia.com/en/riyadh-expo-2030', notOurs: true, verify: true },
+  EXPO:    { fig: '40M', label: 'Visitors expected at Expo 2030 Riyadh', src: 'Saudipedia', url: 'https://saudipedia.com/en/riyadh-expo-2030', notOurs: true, verify: true },
   OFFPLAN: { fig: '≈70%', label: 'Share of Dubai residential sales made off-plan, before the building exists (Nov 2025)', src: 'Khaleej Times, 11 Dec 2025', url: 'https://www.khaleejtimes.com/business/off-plan-sales-dominate-as-dubai-realty-charges-into-2026' },
 };
 
@@ -322,11 +324,11 @@ CRAFTS.forEach(c => { c.layout = craftLayout; c.interaction = craftInteraction(c
 // ---------------------------------------------------------------- chapter 08-12 data
 
 export const PREVIS_STEPS = [
-  { code: '10.1 Show Narrative & Storyboarding', title: 'Write the walk first.', body: 'We script the narrative arc and the visitor’s route through the space, then storyboard it frame by frame.', slot: 'S08-1', caption: 'S08-1 · Storyboard · made by YBAVIT', note: 'Our team drew these frames. Nothing here is generated.', svc: '10.1' },
-  { code: '10.2 3D Digital Twin Pre-vis', title: 'Build the room before the room.', body: 'A full 3D replica of your venue plays the real media on its virtual screens.', tags: ['DISGUISE', 'UNREAL ENGINE'], slot: 'V08-2', caption: 'V08-2 · Grey-box twin', note: 'Every film so far was a concept. Pre-vis does the same for your real venue.', svc: '10.2' },
-  { code: '10.2 · Sightlines & playback', title: 'Check every seat.', body: 'We test sightlines, camera angles and media playback from every standing and seated position.', slot: 'V08-2', overlay: true, caption: 'V08-2 · Hold frame · Illustrative annotation', note: 'Ask where their VIPs will stand. That’s where the first sightline cone goes.' },
-  { code: '10.2 · Pre-vis vs finished', title: 'Hold us to the render.', body: 'The twin and the finished room should match. Compare them here.', slot: 'V08-4', caption: 'V08-4 · AI illustration · not a YBAVIT project', note: 'If this comparison is AI-generated, say so before they ask.' },
-  { code: '10.1 + 10.2 · Sign-off', title: 'Approve before you invest.', body: 'You sign off the script, storyboard and twin walkthrough before production starts, then approve final looks as test frames on the real surface.', slot: 'signoff', caption: 'Sign-off card · built in code', note: 'Who signs off the twin on your side? Bring them to the kickoff.' },
+  { code: '10.1 Show Narrative & Storyboarding', title: 'Write the walk first.', body: 'We script the narrative arc and the visitor’s route through the space, then storyboard it frame by frame.', slot: 'S08-1', caption: 'S08-1 · Storyboard · made by YBAVIT', clientCaption: 'Storyboard: the visitor’s walk, frame by frame', note: 'Our team drew these frames. Nothing here is generated.', svc: '10.1' },
+  { code: '10.2 3D Digital Twin Pre-vis', title: 'Build the room before the room.', body: 'A full 3D replica of your venue plays the real media on its virtual screens.', tags: ['DISGUISE', 'UNREAL ENGINE'], slot: 'V08-2', caption: 'V08-2 · Grey-box twin', clientCaption: 'Grey-box digital twin of the venue', note: 'Every film so far was a concept. Pre-vis does the same for your real venue.', svc: '10.2' },
+  { code: '10.2 · Sightlines & playback', title: 'Check every seat.', body: 'We test sightlines, camera angles and media playback from every standing and seated position.', slot: 'V08-2', overlay: true, caption: 'V08-2 · Hold frame · Illustrative annotation', clientCaption: 'Sightline check · illustrative annotation', note: 'Ask where their VIPs will stand. That’s where the first sightline cone goes.' },
+  { code: '10.2 · Pre-vis vs finished', title: 'Hold us to the render.', body: 'The twin and the finished room should match. Compare them here.', slot: 'V08-4', caption: 'V08-4 · AI illustration · not a YBAVIT project', clientCaption: 'Pre-vis beside the finished room · illustration, not a YBAVIT project', note: 'If this comparison is AI-generated, say so before they ask.' },
+  { code: '10.1 + 10.2 · Sign-off', title: 'Approve before you invest.', body: 'You sign off the script, storyboard and twin walkthrough before production starts, then approve final looks as test frames on the real surface.', slot: 'signoff', caption: 'Sign-off card · built in code', clientCaption: 'What you approve before production', note: 'Who signs off the twin on your side? Bring them to the kickoff.' },
 ];
 export const SIGNOFFS = ['Script', 'Storyboard', 'Twin walkthrough', 'Sightline study', 'Content inventory'];
 
@@ -487,3 +489,37 @@ CHAPTERS.forEach(ch => {
 });
 
 export const chapterBy = (anchor) => CHAPTERS.find(c => c.anchor === anchor);
+
+// What each film shows, for screen readers. The briefs above are production notes and never reach the page.
+const ALT = {
+  'V00-HERO': 'A dark experience space where light blooms across a curved LED wall and over a reflective floor.',
+  'V02-BAND': 'Crowds at dusk walking through a large outdoor light installation of glowing arches.',
+  'V04-0': 'Visitors standing before a floor-to-ceiling LED wall of drifting white and amber light in a briefing centre.',
+  'V04-1': 'A presenter raises a hand and the LED stage behind changes from a landscape to an exploded product view.',
+  'V04-2': 'A cloud of points on an interactive wall regroups into clusters at a touch.',
+  'V04-3': 'A product on a large display turns and changes finish as a visitor taps a tablet.',
+  'V04-3R': 'An apartment interior on a sales-gallery screen switches between two sets of finishes.',
+  'V04-4': 'An LED-wrapped corridor where rings of light flow past two visitors.',
+  'V05-0': 'A spotlit stone statue in a night gallery as projected light restores its original colours.',
+  'V05-1': 'A life-size figure forms from light on an angled glass panel in a dark alcove, then fades.',
+  'V05-2': 'A scan line sweeps a broken sculpture and light fills in its missing arm and paint.',
+  'V05-3': 'A circular theatre wrapped in a projected ancient city at dawn, with visitors at the centre.',
+  'V05-4': 'Hands on a touch table moving archive cards and map fragments.',
+  'V06-0': 'A visitor walks through a dark room and a field of light particles parts around them.',
+  'V06-1': 'Glowing cell-like forms swell and pulse across a large wall in front of a small audience.',
+  'V06-2': 'Ripples and glass-like shards follow a visitor walking along a projection wall.',
+  'V06-3': 'Strands of light pulse like a heartbeat around a hand resting on a sensor pedestal.',
+  'V06-4': 'A ceiling grid of glowing spheres rises and falls in a slow wave.',
+  'V07-04': 'A product form appears as a reflection in angled glass above a dark stage, turns once and fades.',
+  'V07-05': 'A glossy shape seems to burst out of an L-shaped LED screen on the corner of a building.',
+  'V07-07': 'Projected light traces a classical facade at night as its panels seem to fold open.',
+  'V07-08': 'Soft orbs of light circle seated listeners in a dark room ringed with speakers.',
+  'V07-09': 'Projected water on a gallery floor parts around a visitor’s steps.',
+  'S08-1': 'A storyboard of a visitor’s walk: arrival, threshold, reveal, interaction, finale and exit.',
+  'V08-2': 'A grey-box model of a hall with a curved LED wall, two screens and three small figures.',
+  'V08-4': 'One gallery wall split in two: the pre-vis model on the left, the finished projection on the right.',
+  'V09-WARP': 'A projected grid bends into register on a curved white wall, then a colour field locks to its edges.',
+  'V11-REEL': 'A one-minute reel of the concept films, in venue order.',
+  'V12-CLOSE': 'The opening space after the show, its LED wall settled into a calm dusk gradient.',
+};
+for (const [id, a] of Object.entries(ALT)) { SLOTS[id].alt = a; if (SLOTS[id + '-M']) SLOTS[id + '-M'].alt = a; }

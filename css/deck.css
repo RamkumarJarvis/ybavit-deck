@@ -123,6 +123,7 @@ ol[role="list"], ul[role="list"] { list-style: none; padding: 0; }
 .pi { width: 10px; height: 12px; display: inline-block; background: linear-gradient(90deg, currentColor 0 3px, transparent 3px 7px, currentColor 7px 10px); }
 #pauseBtn[aria-pressed="true"] .pi { background: currentColor; clip-path: polygon(0 0, 100% 50%, 0 100%); }
 #pauseBtn[aria-pressed="true"] { color: var(--accent); }
+#detailsBtn[aria-pressed="true"] { color: var(--spike); }
 .rail { display: none; align-items: center; gap: 1rem; min-width: 0; flex: 1; justify-content: center; }
 .rail ol { display: flex; align-items: center; }
 .rail a { display: grid; place-items: center; width: 22px; height: var(--hit); }

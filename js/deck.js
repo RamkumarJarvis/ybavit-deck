@@ -21,14 +21,20 @@ const narrow = matchMedia('(max-width: 47.99rem)');
 const two = (n) => String(n).padStart(2, '0');
 
 // ---------------------------------------------------------------- Draft / Client view
+// Client view hides the working details (placeholders, film-slot labels, build notes); one header button and the
+// index's View setting switch the whole deck. Client is the default, because the link goes to buyers.
 function setView(v) {
-  body.classList.toggle('client', v === 'client');
-  body.classList.toggle('draft', v !== 'client');
-  $('#viewClient').checked = v === 'client'; $('#viewDraft').checked = v !== 'client';
+  const shown = v === 'draft';
+  body.classList.toggle('client', !shown);
+  body.classList.toggle('draft', shown);
+  $('#viewClient').checked = !shown; $('#viewDraft').checked = shown;
+  const b = $('#detailsBtn'); b.setAttribute('aria-pressed', String(shown)); b.textContent = shown ? 'Hide details' : 'Show details';
+  if (!shown && $('#specDlg').open) $('#specDlg').close();
   store.set('ybavit-view', v);
   films.refresh();
 }
 $$('input[name="view"]').forEach(r => r.addEventListener('change', () => setView(r.value)));
+$('#detailsBtn').addEventListener('click', () => setView(body.classList.contains('draft') ? 'client' : 'draft'));
 
 // ---------------------------------------------------------------- motion: reduced motion or the global Pause
 const motion = {
@@ -298,7 +304,7 @@ $('#expandAll')?.addEventListener('click', (e) => {
 });
 
 // ---------------------------------------------------------------- start
-setView(store.get('ybavit-view') || 'draft');
+setView(store.get('ybavit-view') === 'draft' ? 'draft' : 'client');
 motion.set(motion.paused);
 const h = location.hash.slice(1);
 const fromHash = h.startsWith('p-') ? h.slice(2) : null;

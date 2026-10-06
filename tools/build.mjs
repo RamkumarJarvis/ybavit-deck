@@ -44,8 +44,8 @@ function film(id, o = {}) {
   const kind = s.origin === 'ybavit' ? 'Made by YBAVIT, not generated' : s.origin === 'code' ? 'Built in code' : 'AI film slot';
   return `<figure class="film${o.cls ? ' ' + o.cls : ''}" data-slot="${id}"${m}${style}>
   <div class="film-media" aria-hidden="true"></div>
-  <figcaption class="sr-only">${esc(firstSentence(s.brief))}</figcaption>
-  <span class="badge mono"><span class="draft-only">${esc(C.STUDY_LABEL)}</span><span class="client-only">Illustrative study · drawn in code</span></span>
+  <figcaption class="sr-only">${esc(s.alt || firstSentence(s.brief))}</figcaption>
+  <span class="badge mono"><span class="draft-only">${esc(C.STUDY_LABEL)}</span><span class="client-only">Illustrative study</span></span>
   <span class="slot-tag mono draft-only">${id}${TRIMS[id] ? ' · trim of ' + src + (id.startsWith('V01') ? ' · 4:5' : ' · 640×360') : ' · ' + esc(s.ratio.split(' · ')[0]) + ' · ' + kind}</span>
 </figure>`;
 }
@@ -110,13 +110,13 @@ H['why-now'] = () => {
     </div></div>
   </div>
   <div class="frame why-body">
-    <p class="mono caption-ai"><span class="draft-only">Band: ${esc(C.STUDY_LABEL)}</span><span class="client-only">Band: illustrative study · not a real venue</span></p>
+    <p class="mono caption-ai draft-only">Band: ${esc(C.STUDY_LABEL)}</p>
     <ul class="tiles" role="list" aria-label="Market signals">
       ${Object.entries(TILES).map(([k, t]) => `
       <li class="tile" data-tile="${k}"${def.includes(k) ? '' : ' hidden'}>
         <p class="fig display">${esc(t.fig)}</p>
         <p class="body">${esc(t.label)}</p>
-        <p class="src mono">${t.notOurs ? '<span class="not-ours">Not YBAVIT projects</span> · ' : ''}${ext(t.url, t.src)}</p>
+        <p class="src mono">${t.notOurs ? '<span class="not-ours">Not YBAVIT projects</span> · ' : ''}${ext(t.url, t.src)}${t.verify ? '<span class="draft-only"> (secondary source, verify before use)</span>' : ''}</p>
       </li>`).join('')}
     </ul>
     <div class="beliefs">
@@ -259,7 +259,7 @@ H.crafts = () => {
       <div class="craft-intro">
         <p class="eyebrow mono">${esc(c.eyebrow)}</p>
         <h3 id="h-${c.id}" class="h2">${esc(c.headline)}</h3>
-        <p class="lead">${esc(c.subhead)}${c.subheadSrc ? ` <span class="mono src">(${c.subheadSrc})</span>` : ''}</p>
+        <p class="lead">${esc(c.subhead)}${c.subheadSrc ? ` <span class="mono src draft-only">(${c.subheadSrc})</span>` : ''}</p>
         <p class="body">${esc(c.body)}</p>
         ${c.listen ? listenCard() : ''}
         ${context(c.context, 'Context · not a YBAVIT project')}
@@ -308,7 +308,7 @@ H.previs = () => {
   const fig = (s, i) => {
     let inner;
     if (s.slot === 'signoff') inner = `<div class="signoff"><p class="mono">Sign-off · before production starts</p><ul role="list">${C.SIGNOFFS.map((x, j) => `<li style="--j:${j}"><span class="tick" aria-hidden="true"></span>${x}</li>`).join('')}</ul></div>`;
-    else if (s.slot === 'S08-1') inner = `<div class="board"><p class="mono board-cap">Visitor walk structure · diagram drawn in code</p><ol role="list">${['Arrival', 'Threshold', 'Reveal', 'Interaction', 'Finale', 'Exit'].map((x, j) => `<li style="--j:${j}"><span class="mono">F${j + 1}</span><canvas class="board-c" data-frame="${j}" width="160" height="90"></canvas><span class="mono">${x}</span></li>`).join('')}</ol></div><div class="proof-slot draft-only in-fig"><span class="mono">[S08-1: YBAVIT’s own storyboard frames replace this diagram]</span></div>`;
+    else if (s.slot === 'S08-1') inner = `<div class="board"><p class="mono board-cap">Visitor walk structure<span class="draft-only"> · diagram drawn in code</span></p><ol role="list">${['Arrival', 'Threshold', 'Reveal', 'Interaction', 'Finale', 'Exit'].map((x, j) => `<li style="--j:${j}"><span class="mono">F${j + 1}</span><canvas class="board-c" data-frame="${j}" width="160" height="90"></canvas><span class="mono">${x}</span></li>`).join('')}</ol></div><div class="proof-slot draft-only in-fig"><span class="mono">[S08-1: YBAVIT’s own storyboard frames replace this diagram]</span></div>`;
     else inner = film(s.slot, { cls: s.overlay ? 'film-hold' : '' }) + (s.overlay ? sightlines() : '');
     return `<div class="fig-layer" data-layer="${i}">${inner}</div>`;
   };
@@ -337,7 +337,7 @@ H.previs = () => {
     </ol>
     <div class="figure" data-active="0" aria-hidden="true">
       <div class="figure-frame">${P.map(fig).join('')}</div>
-      <p class="figure-cap mono">${P.map((s, i) => `<span data-cap="${i}">${esc(s.caption)}</span>`).join('')}</p>
+      <p class="figure-cap mono">${P.map((s, i) => `<span data-cap="${i}"><span class="draft-only">${esc(s.caption)}</span><span class="client-only">${esc(s.clientCaption)}</span></span>`).join('')}</p>
     </div>
   </div>
 </section>`;
@@ -364,7 +364,7 @@ H['show-control'] = () => {
     <div class="ch-head">
       <p class="eyebrow mono">Show Control & Media Integration</p>
       <h2 id="h-showc" class="display">One button, every cue.</h2>
-      <p class="lead measure">The operational core that bonds content, software, and physical AV hardware into a synchronized, single-button or automated experience. <span class="mono src">(PDF)</span></p>
+      <p class="lead measure">The operational core that bonds content, software, and physical AV hardware into a synchronized, single-button or automated experience. <span class="mono src draft-only">(PDF)</span></p>
     </div>
   </div>
   <div class="t7 frame">
@@ -399,7 +399,7 @@ H['show-control'] = () => {
         <div class="tl-cms" aria-hidden="true"><p class="mono">CMS · your staff</p><ul role="list"><li>Change slides</li><li>Update signage</li><li>Edit schedule</li></ul></div>
         <div class="tl-io" aria-hidden="true"><ul role="list">${['LIDAR', 'DMX', 'MIDI', 'OSC', 'SERIAL', 'CRESTRON/AMX'].map(p => `<li class="mono">${p}</li>`).join('')}</ul><span class="mono node">Render node</span></div>
       </div>
-      <p class="mono tl-cap">Illustrative cue sheet · drawn in code, not generated</p>
+      <p class="mono tl-cap">Illustrative cue sheet<span class="draft-only"> · drawn in code, not generated</span></p>
       <p class="context"><span class="mono">Not a YBAVIT project:</span> Eurovision 2014 ran 37 songs from nine synchronised media servers, with custom OSC plug-ins driving the timeline <span class="src mono">(${ext('https://www.disguise.one/en/insights/case-studies/eurovision-song-contest-2014', 'Disguise')})</span>.</p>
     </div>
   </div>
@@ -454,7 +454,7 @@ H.proof = () => `
         <li class="proof-slot draft-only"><span class="mono">[PROOF SLOT: lead 1 · chosen by the buyer preset · kind: previs or process]</span></li>
         <li class="proof-slot draft-only"><span class="mono">[PROOF SLOT: lead 2 · kind: capability (the A07-08 binaural demo once recorded)]</span></li>
         <li class="proof-slot draft-only"><span class="mono">[PROOF SLOT: lead 3 · kind: quote, named person with written consent]</span></li>
-        <li class="pcard fallback"><p class="mono">Demonstration</p><h3 class="h3">The show-control cue sheet.</h3><p class="body">An illustrative show timeline drawn in code: the same structure we deliver for every venue.</p><a class="next-link mono" href="#show-control">Open the cue sheet</a></li>
+        <li class="pcard fallback"><p class="mono">Demonstration</p><h3 class="h3">The show-control cue sheet.</h3><p class="body">An illustrative show timeline: the same structure we deliver for every venue.</p><a class="next-link mono" href="#show-control">Open the cue sheet</a></li>
         <li class="pcard fallback"><p class="mono">Invitation</p><h3 class="h3">See our pre-vis process on your floor plan.</h3><p class="body">Send a plan or a few photos and we walk you through how your venue would be modelled and checked.</p><a class="next-link mono" href="#next">Start the conversation</a></li>
       </ul>
     </div>
@@ -479,7 +479,7 @@ H.next = () => `
     <p class="cta-row"><a class="btn-accent cta" href="mailto:info@ybavit.com?subject=Pre-vis%20sprint">Scope your pre-vis sprint</a></p>
     <p class="mono micro">Starts with a 30-minute venue walkthrough call<span class="ph"> with [CONTACT: name, role]</span>.</p>
     <p class="contact"><span class="ph">[CONTACT: name] · </span><span class="email" id="email">info@ybavit.com</span> <button type="button" class="btn-line mono copy" data-copy="info@ybavit.com">Copy address</button><span class="ph"> · +91 [PHONE]</span> · Mon–Sat 10:00–19:00 IST</p>
-    <p class="mono disclosure">${esc(C.DISCLOSURE)}</p>
+    <p class="mono disclosure draft-only">${esc(C.DISCLOSURE)}</p>
     <p class="mono draft-only micro">Leave-behind PDF: <span class="ph">[built from this content file later]</span></p>
   </div></div>
 </section>`;
@@ -503,12 +503,14 @@ const indexDialog = `
       <select id="viewFor2" data-viewfor>${presetOptions}</select>
       <p class="mono">View</p>
       <div class="seg" role="radiogroup" aria-label="View">
-        <label><input type="radio" name="view" value="draft" id="viewDraft" checked> Draft (placeholders, film slots, spec)</label>
-        <label><input type="radio" name="view" value="client" id="viewClient"> Client (what a buyer sees)</label>
+        <label><input type="radio" name="view" value="client" id="viewClient" checked> Client (details hidden)</label>
+        <label><input type="radio" name="view" value="draft" id="viewDraft"> Working (details shown: placeholders, film slots, spec)</label>
       </div>
+      <div class="draft-only">
       <p class="mono">Build documents</p>
       <p><a href="spec.html" target="_blank" rel="noopener">Spec: purpose, copy, layout and interaction for every chapter</a></p>
       <p><a href="spec.html#films" target="_blank" rel="noopener">Film slots and Higgsfield briefs</a></p>
+      </div>
       <p class="mono">Present mode keys</p>
       <p class="body small">→ / Page Down / Space next · ← / Page Up back · B or . blank · O index · S notes · F fullscreen · E expand · H timer · 0–9 chapter</p>
     </div>
@@ -584,6 +586,7 @@ const deckBody = `
   </nav>
   <div class="hdr-r">
     <label class="vf"><span class="mono">Viewing for</span><select id="viewFor" data-viewfor>${presetOptions}</select></label>
+    <button type="button" class="btn-ghost mono" id="detailsBtn" aria-pressed="false" title="Show or hide placeholders, film-slot labels and build notes">Show details</button>
     <button type="button" class="btn-ghost mono draft-only" id="specBtn" aria-haspopup="dialog">Spec</button>
     <button type="button" class="btn-ghost mono" id="presentBtn" aria-haspopup="dialog">Present</button>
     <button type="button" class="btn-ghost mono" id="indexBtn" aria-haspopup="dialog"><span aria-hidden="true">☰</span> Index</button>
@@ -595,8 +598,9 @@ ${order.map(a => H[a]()).join('\n')}
 <footer class="foot-disc">
   <div class="frame">
     <p class="mono">About the films in this deck</p>
-    <p class="body measure">${txt(C.DISCLOSURE_LONG)}</p>
-    <p class="mono legal">© 2026 Yottabyte Technology <span class="ph">[confirm the legal name shown with YBAVIT]</span> · <a href="spec.html" class="draft-only">Build spec</a></p>
+    <p class="body measure client-only">${esc(C.DISCLOSURE_CLIENT)}</p>
+    <p class="body measure draft-only">${txt(C.DISCLOSURE_LONG)}</p>
+    <p class="mono legal">© 2026 Yottabyte Technology <span class="ph">[confirm the legal name shown with YBAVIT]</span><span class="draft-only"> · <a href="spec.html">Build spec</a></span></p>
   </div>
 </footer>
 ${indexDialog}
@@ -623,7 +627,7 @@ const deckPage = `<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 ${head('YBAVIT Venue Walkthrough', 'css/deck.css')}
 </head>
-<body class="draft">
+<body class="client">
 ${deckBody}
 </body>
 </html>
@@ -711,7 +715,7 @@ fs.writeFileSync(path.join(root, 'spec.html'), specPage);
 // publish copy: the host wraps the page in its own skeleton, so drop ours from the deck page only
 const art = path.join(root, '.artifact');
 fs.mkdirSync(art, { recursive: true });
-const stripped = deckPage.replace(/^<!doctype html>\n<html[^>]*>\n<head>\n<meta charset="utf-8">\n<meta name="viewport"[^>]*>\n/, '').replace('</head>\n<body class="draft">\n', '<script>document.body.classList.add(\'draft\')</script>\n').replace(/<\/body>\n<\/html>\n$/, '');
+const stripped = deckPage.replace(/^<!doctype html>\n<html[^>]*>\n<head>\n<meta charset="utf-8">\n<meta name="viewport"[^>]*>\n/, '').replace('</head>\n<body class="client">\n', '<script>document.body.classList.add(\'client\')</script>\n').replace(/<\/body>\n<\/html>\n$/, '');
 fs.writeFileSync(path.join(art, 'index.html'), stripped);
 // client-facing check: placeholders must all sit inside Draft-only markup
 const clientText = deckPage.replace(/<(span|p) class="ph">[^<]*<\/\1>/g, '').replace(/class="[^"]*draft-only[^"]*"[^>]*>[\s\S]*?<\/(p|div|span|li|ul|button|a)>/g, '');
