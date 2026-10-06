@@ -1,0 +1,45 @@
+/* Build spec for the YBAVIT deck: the same tokens as the deck, set as a reading document. */
+:root {
+  color-scheme: dark;
+  --bg: #07090d; --surface: #0e1218; --surface-2: #151a22; --line: rgb(236 230 218 / .12);
+  --text: #ece6da; --text-2: rgb(236 230 218 / .74); --text-3: rgb(236 230 218 / .58); --accent: #f2b35b; --spike: #ff4fa3;
+  --font: 'Archivo', 'Helvetica Neue', Arial, sans-serif; --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  --margin: clamp(1rem, 5vw, 6rem);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); font-size: 1.0625rem; line-height: 1.55; overflow-x: clip; }
+a { color: var(--text); text-underline-offset: .2em; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mono { font-family: var(--mono); font-size: .8125rem; letter-spacing: .02em; }
+.spec { max-width: 84rem; margin: 0 auto; padding: 3rem max(var(--margin), 16px) 6rem; display: grid; gap: 3rem; }
+.spec-hero { display: grid; gap: 1rem; max-width: 60rem; }
+.spec-hero h1 { margin: 0; font-size: clamp(2.25rem, 1.5rem + 3vw, 4.5rem); line-height: 1; letter-spacing: -.03em; font-weight: 600; font-stretch: 108%; text-wrap: balance; }
+.spec-hero .lead { margin: 0; font-size: 1.25rem; color: var(--text-2); max-width: 60ch; }
+.spec-hero p { margin: 0; }
+.spec-hero .mono:first-child { color: var(--accent); text-transform: uppercase; letter-spacing: .08em; }
+.toc ol { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: .25rem 1.5rem; }
+.toc a { display: flex; gap: .75rem; min-height: 40px; align-items: center; text-decoration: none; border-bottom: 1px solid var(--line); }
+.toc .mono { color: var(--accent); }
+.spec-ch { display: grid; gap: 1.25rem; padding-top: 2.5rem; border-top: 1px solid var(--line); scroll-margin-top: 1rem; min-width: 0; }
+.spec-ch > h2 { margin: 0; font-size: clamp(1.75rem, 1.3rem + 1.6vw, 3rem); line-height: 1.05; font-weight: 600; font-stretch: 106%; letter-spacing: -.02em; }
+.spec-ch > h2 .mono { color: var(--accent); font-size: .5em; vertical-align: middle; margin-right: .5rem; }
+.spec-meta { color: var(--text-3); margin: 0; }
+.spec-block { display: grid; gap: .5rem; min-width: 0; }
+.spec-block > h3 { margin: 0; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; font-weight: 500; }
+.spec-block ul, .spec-block ol { margin: 0; padding-left: 1.2rem; display: grid; gap: .4rem; color: var(--text-2); max-width: 80ch; }
+.spec-block p { margin: 0; max-width: 80ch; }
+.spec-block .note { color: var(--text-3); }
+.beats { list-style: none; padding: 0 !important; }
+.beats .mono { color: var(--accent); }
+.spec-sub { display: grid; gap: 1rem; padding: 1.25rem; background: var(--surface); border-radius: 2px; }
+.spec-sub > h3 { margin: 0; font-size: 1.375rem; font-weight: 580; }
+.spec-sub > h3 .mono { color: var(--accent); }
+.ph { color: var(--spike); }
+.style-block { padding: 1rem; background: var(--surface-2); border-left: 2px solid var(--accent); font-family: var(--mono); font-size: .875rem; }
+.tw { overflow-x: auto; border: 1px solid var(--line); border-radius: 2px; }
+table { width: 100%; border-collapse: collapse; min-width: 52rem; font-size: .9375rem; }
+th, td { text-align: left; vertical-align: top; padding: .625rem .75rem; border-bottom: 1px solid var(--line); }
+thead th { font-family: var(--mono); font-size: .75rem; color: var(--text-3); font-weight: 500; text-transform: uppercase; letter-spacing: .06em; background: var(--surface); }
+tbody th { color: var(--accent); font-weight: 500; white-space: nowrap; }
+.slots td:last-child { min-width: 28rem; color: var(--text-2); }
