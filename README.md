@@ -2,7 +2,9 @@
 
 YBAVIT's content-services deck as one page that plays two ways: **Read** (native scroll, for the shared link) and **Present** (one beat per click or clicker press, for meeting rooms and LED walls). Thirteen chapters, 48 presenter beats, all 35 services in visible text. Built from the research brief; nothing outside this folder was changed.
 
-Published (private until shared): https://claude.ai/artifact/6pWqV4VeLyuuWyEbZkotJ6
+Live site: https://ybavit-deck.vercel.app (personal Vercel project `ybavit-deck`, team ramkumarjarvis). Source: https://github.com/RamkumarJarvis/ybavit-deck (personal account, SSH host `github.com`). Every push to `main` redeploys.
+
+Claude artifact copy (private until shared): https://claude.ai/artifact/6pWqV4VeLyuuWyEbZkotJ6
 
 ## Files
 
@@ -21,6 +23,10 @@ macOS blocks the local server from reading the Desktop folder, so it serves a co
 ```bash
 rsync -a --delete --exclude .artifact ybavit/ /private/tmp/claude-501/-Users-apple-Desktop-Presentation-website/73958cb2-8f13-48fa-a731-68bcd4ef098e/scratchpad/ybavit-site/
 ```
+
+## Deploy
+
+This folder is its own Git repo (origin = the personal GitHub). After editing: `node tools/build.mjs`, then commit and `git push`; Vercel builds nothing and serves the files as they are.
 
 ## Adding the Higgsfield films
 
